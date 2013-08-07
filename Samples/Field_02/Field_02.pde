@@ -1,3 +1,9 @@
+/**
+  Sample demonstrating gravity, avoidance, and clamping to screen.
+  A ball-pit-like pseudo-fluid.
+  Interact by moving the mouse cursor.
+*/
+
 // Declare variables
 SimpleSimulation simulation;
 

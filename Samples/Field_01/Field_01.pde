@@ -1,3 +1,8 @@
+/**
+  Sample demonstrating simulation of a field of nodes and applying forces.
+  Interact by moving the mouse cursor.
+*/
+
 // Declare variables
 SimpleSimulation simulation;
 
