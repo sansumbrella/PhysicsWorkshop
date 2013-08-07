@@ -9,8 +9,17 @@ void setup()
   smooth();           // smooth out the edges of our graphics
   simulation = new SimpleSimulation();
 
-  Node a = new Node( random( width ), random( height ) );
-  Node b = new Node( random( width ), random( height ) );
+  createSpring();
+}
+
+void createSpring()
+{ // Create two nodes and connect them with a spring
+  float x1 = random( width * 0.2, width * 0.8 );
+  float y1 = random( height * 0.2, height * 0.8 );
+  float x2 = x1 + random( -width / 4, width / 4 );
+  float y2 = y1 + random( -height / 4, height / 4 );
+  Node a = new Node( x1, y1 );
+  Node b = new Node( x2, y2 );
   Spring spring = new Spring( a, b, 0.5 );
   simulation.addNode( a );
   simulation.addNode( b );
@@ -61,5 +70,15 @@ void mouseReleased()
     mouseNode.py = pmouseY;
   }
   mouseNode = null;
+}
+
+void keyPressed()
+{
+  if( key == 'r' )
+  {
+    simulation.nodes.clear();
+    simulation.springs.clear();
+    createSpring();
+  }
 }
 
