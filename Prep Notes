@@ -1,0 +1,17 @@
+Introduction to Processing
+	- The interface
+	- Drawing commands
+	- Variable
+	- Function
+	- map()
+
+Interpreting Forces
+	- map() for value
+	- size as input and output
+	- distance as input and output
+	- color as output
+	- speed as output
+
+Manipulating systems
+	- Mouse interaction with physics lib samples
+	- Image sample (place image for each node)
