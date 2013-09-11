@@ -11,7 +11,7 @@ void setup()
   size( 800, 600 );
   // tell Processing to make our lines look nicer
   smooth();
-  // tell Processing to use an artist-friendlier color mode
+  // specify colors with hue, saturation, and brightness
   colorMode( HSB, 1.0 );
   // assign useful values to our variables
   line_color = color( 0.0, 1.0, 1.0 );
