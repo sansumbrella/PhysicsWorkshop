@@ -1,3 +1,21 @@
+Inspirational Images/Projects
+Brandon Morse
+	http://www.coplanar.org/work/
+	http://www.art.umd.edu/faculty/bmorse/
+Lia
+	http://www.liaworks.com/category/theprojects/
+Kia Neill
+	http://www.kianeill.com/kianeill.com/Kia_Neill.html
+Peter Jellitsch
+	http://www.peterjellitsch.com
+Nervous System
+	http://n-e-r-v-o-u-s.com
+Cai Guo Qiang
+Lure?
+World of Goo?
+Element4l?
+Distributions - Barry Le Va
+
 Introduction to Processing
 	- The interface
 	- Drawing commands
@@ -8,8 +26,10 @@ Introduction to Processing
 Interpreting Forces
 	- map() for value
 	- size as input and output
+		- Strech ( close => thick, far => thin )
 	- distance as input and output
 	- color as output
+		- Strech ( close => saturated/dark, far => desaturated/light )
 	- speed as output
 
 Manipulating systems
