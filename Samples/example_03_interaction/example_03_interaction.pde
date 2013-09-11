@@ -22,6 +22,7 @@ void draw()
 {
   // start with a white canvas
   background( bg_color );
+  strokeWeight( 8 );
   // draw a line from x, y to the mouse
   stroke( line_color );
   line( x, y, mouseX, mouseY );
