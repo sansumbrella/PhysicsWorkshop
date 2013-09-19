@@ -49,6 +49,11 @@ Node nearestNode( float x, float y )
   return ret;
 }
 
+void separateNodes( float minDist, float stiffness )
+{
+  simulation.separateNodes( minDist, stiffness );
+}
+
 // Move nodes around to other side of screen when they move out of bounds
 void wrapNodesToScreen()
 {
@@ -68,7 +73,7 @@ void updateSimulation()
 }
 // apply a force to all nodes in the simulation
 // the effect falls off linearly with node distance from location
-void applyForce( float x, float y, float fx, float fy )
+void applyForce( float fx, float fy, float x, float y )
 {
   for ( Node n : simulation.nodes )
   {
@@ -89,7 +94,7 @@ void applyForce( float fx, float fy )
 
 // apply a force to all nodes in the simulation
 // the effect falls off quadratically with node distance from location
-void applyForceQuad( float x, float y, float fx, float fy )
+void applyForceQuad( float fx, float fy, float x, float y )
 {
   for ( Node n : simulation.nodes )
   {
