@@ -27,4 +27,7 @@ void draw()
   stroke( line_color );
   // draw a line between x1, y1 and x2, y2
   line( x1, y1, x2, y2 );
+  // animate the line by changing the variables
+  x1 = x1 + 1;
+  x2 = x2 - 1;
 }

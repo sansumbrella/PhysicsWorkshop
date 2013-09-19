@@ -1,62 +1,48 @@
+//
+// Physics Objects
+//
+
+// This is our simulation object
+// It's created here so we don't need to worry about it elsewhere
+SimpleSimulation simulation = new SimpleSimulation();
+
 class SimpleSimulation
 {
   ArrayList<Node> nodes;
+  ArrayList<Node> pinned_nodes;
   ArrayList<Spring> springs;
-  ArrayList<Pin> pins;
 
   SimpleSimulation()
   {
     nodes = new ArrayList<Node>();
+    pinned_nodes = new ArrayList<Node>();
     springs = new ArrayList<Spring>();
-    pins = new ArrayList<Pin>();
-  }
-
-  void addNode( Node node )
-  {
-    nodes.add( node );
-  }
-
-  void addSpring( Spring spring )
-  {
-    springs.add( spring );
   }
   
-  void addPin( Pin pin )
+  Node createNode( float _x, float _y )
   {
-    pins.add( pin );
+    Node n = new Node( _x, _y );
+    nodes.add( n );
+    return n;
   }
 
-  // apply a force to all nodes in the simulation
-  // the effect falls off linearly with node distance from location
-  void applyForce( PVector force, PVector location )
+  Spring createSpring( Node _a, Node _b, float _stiffness )
   {
-    for ( Node n : nodes )
-    {
-      float d = max( 1, dist( location.x, location.y, n.x, n.y ) );
-      n.x += force.x / d;
-      n.y += force.y / d;
-    }
+    Spring spring = new Spring( _a, _b, _stiffness );
+    springs.add( spring );
+    return spring;
   }
-
-  // apply a force to all nodes in the simulation
-  // the effect falls off quadratically with node distance from location
-  void applyForceQuad( PVector force, PVector location )
+  
+  void clear()
   {
-    for ( Node n : nodes )
-    {
-      float d = max( 1, dist( location.x, location.y, n.x, n.y ) );
-      n.x += force.x / (d * d);
-      n.y += force.y / (d * d);
-    }
+    nodes.clear();
+    pinned_nodes.clear();
+    springs.clear();
   }
-
-  void applyForce( PVector force )
+  
+  void pinNode( Node node )
   {
-    for ( Node n : nodes )
-    {
-      n.x += force.x;
-      n.y += force.y;
-    }
+    pinned_nodes.add( node );
   }
 
   void update()
@@ -66,20 +52,21 @@ class SimpleSimulation
       s.update();
     }
 
+    for( Node n : pinned_nodes )
+    { // snap pinned node back into place
+      n.x = n.px;
+      n.y = n.py;
+    }
+
     for ( Node n : nodes )
     { // update every Node in our collection named nodes
       n.update();
-    }
-
-    for ( Pin p : pins )
-    {
-      p.update();
     }
   }
 
   // wraps all nodes to screen
   // will cause crazy behavior with springs if only one node wraps
-  void wrapToScreen()
+  void wrapNodesToScreen()
   {
     for ( Node n : nodes )
     {
@@ -107,7 +94,7 @@ class SimpleSimulation
   }
 
   // constrains all nodes to screen
-  void constrainToScreen()
+  void constrainNodesToScreen()
   {
     for ( Node n : nodes )
     {
@@ -213,26 +200,11 @@ class Node
     px = cx;
     py = cy;
   }
-}
 
-class Pin
-{
-  Node node;
-  float x, y;
-
-  Pin( Node n )
+  void setPosition( float x, float y )
   {
-    node = n;
-    x = n.x;
-    y = n.y;
-  }
-
-  void update()
-  {
-    node.x = x;
-    node.px = x;
-    node.y = y;
-    node.py = y;
+    this.x = this.px = x;
+    this.y = this.py = y;
   }
 }
 

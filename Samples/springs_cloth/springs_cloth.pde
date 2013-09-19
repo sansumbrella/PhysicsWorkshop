@@ -5,7 +5,6 @@
  */
 
 // Declare variables
-SimpleSimulation simulation;
 Node mouseNode;
 PImage gradient;
 
@@ -14,13 +13,12 @@ void setup()
   // and initialize all of our variables
   size( 800, 600 );   // set the window size
   smooth();           // smooth out the edges of our graphics
-  simulation = new SimpleSimulation();
   gradient = loadImage("gradient.png");
 
-  createCloth();
+  createCloth( false );
 }
 
-void createCloth()
+void createCloth( boolean createDiagonalSprings )
 { 
   float column_width = 20;
   float row_height = 20;
@@ -35,7 +33,7 @@ void createCloth()
     {
       float x = x_offset + column * column_width;
       float y = y_offset + row * row_height;
-      cloth_nodes[row * columns + column] = new Node( x, y );
+      cloth_nodes[row * columns + column] = createNode( x, y );
     }
   }
 
@@ -46,7 +44,7 @@ void createCloth()
     {
       Node lhs = cloth_nodes[y * columns + x];
       Node rhs = cloth_nodes[y * columns + x + 1];
-      simulation.addSpring( new Spring( lhs, rhs, 1.0 ) );
+      createSpring( lhs, rhs, 1.0 );
     }
   }
   // Vertical connections
@@ -56,42 +54,41 @@ void createCloth()
     {
       Node top = cloth_nodes[y * columns + x];
       Node bottom = cloth_nodes[(y + 1) * columns + x];
-      simulation.addSpring( new Spring( top, bottom, 1.0 ) );
+      createSpring( top, bottom, 1.0 );
     }
   }
-  // Diagonal connections
-  //  for( int y = 1; y < rows; ++y )
-  //  {
-  //    for( int x = 0; x < columns - 1; ++x )
-  //    {
-  //      Node ll = cloth_nodes[y * columns + x];
-  //      Node ur = cloth_nodes[(y - 1) * columns + x + 1];
-  //      simulation.addSpring( new Spring( ll, ur, 0.25 ) );
-  //    }
-  //  }
-  //  for( int y = 0; y < rows - 1; ++y )
-  //  {
-  //    for( int x = 0; x < columns - 1; ++x )
-  //    {
-  //      Node tl = cloth_nodes[y * columns + x];
-  //      Node lr = cloth_nodes[(y + 1) * columns + x + 1];
-  //      simulation.addSpring( new Spring( tl, lr, 0.25 ) );
-  //    }
-  //  }
-
-  simulation.addPin( new Pin( cloth_nodes[0] ) );
-  simulation.addPin( new Pin( cloth_nodes[columns - 1] ) );
-
-  for ( Node n : cloth_nodes )
+  // Diagonal connections (for more rigid feel)
+  if ( createDiagonalSprings )
   {
-    simulation.addNode( n );
+    for ( int y = 1; y < rows; ++y )
+    {
+      for ( int x = 0; x < columns - 1; ++x )
+      {
+        Node ll = cloth_nodes[y * columns + x];
+        Node ur = cloth_nodes[(y - 1) * columns + x + 1];
+        createSpring( ll, ur, 0.05 );
+      }
+    }
+    for ( int y = 0; y < rows - 1; ++y )
+    {
+      for ( int x = 0; x < columns - 1; ++x )
+      {
+        Node tl = cloth_nodes[y * columns + x];
+        Node lr = cloth_nodes[(y + 1) * columns + x + 1];
+        createSpring( tl, lr, 0.25 );
+      }
+    }
   }
+  // fix top corners in place
+  pinNode( cloth_nodes[0] );
+  pinNode( cloth_nodes[columns - 1] );
 }
 
 void draw()
 { // Update everything
-  simulation.applyForce( new PVector( 0, 0.4 ) );
-  simulation.update();        // update simulation elements
+  // always apply a slight downward force (like gravity)
+  applyForce( 0, 0.4 );
+  updateSimulation();        // update simulation elements
   if ( mouseNode != null )
   { // if a node has been grabbed, make sure it stays at the mouse position
     mouseNode.x = mouseX;
@@ -149,7 +146,13 @@ void keyPressed()
   { // reset the simulation
     simulation.nodes.clear();    // remove all nodes
     simulation.springs.clear();  // remove all springs
-    createCloth();              // create a new spring connection
+    createCloth( false );
+  }
+  if ( key == 'd' )
+  { // reset the simulation
+    simulation.nodes.clear();    // remove all nodes
+    simulation.springs.clear();  // remove all springs
+    createCloth( true );
   }
 }
 
