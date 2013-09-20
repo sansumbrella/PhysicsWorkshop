@@ -1,0 +1,22 @@
+Introduction: What is Procesing
+
+How to draw in code
+Samples 1 and 2
+Make a drawing, convert it into Processing
+Label points A, B, C, D, etc
+
+How to interact with code
+Sample 3
+mouse control
+Make one (or all) of your drawing's points move with the mouse
+
+Physics interactions: forces
+Samples 4 — 5
+Add physics to your existing drawing
+
+Physics interaction: springs
+Sample 6
+keep your shape's integrity
+
+Finally: make your own physics shape
+Draw on paper, label, convert to Processing as nodes and springs
