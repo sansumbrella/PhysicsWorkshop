@@ -54,9 +54,7 @@ void mouseReleased()
   if ( mouseNode != null )
   { // release the node with force based on mouse movement
     mouseNode.x = mouseX;
-    mouseNode.px = pmouseX;
     mouseNode.y = mouseY;
-    mouseNode.py = pmouseY;
     mouseNode = null;
   }
 }

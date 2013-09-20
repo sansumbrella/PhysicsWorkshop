@@ -28,6 +28,6 @@ void mouseMoved()
 { // Stir things up with the mouse
   float fx = 20 * (mouseX - pmouseX);
   float fy = 20 * (mouseY - pmouseY);
-  applyForce( mouseX, mouseY, fx, fy );
+  applyForce( fx, fy, mouseX, mouseY );
 }
 

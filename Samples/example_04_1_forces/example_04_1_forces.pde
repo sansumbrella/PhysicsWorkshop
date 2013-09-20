@@ -19,7 +19,7 @@ void mouseMoved()
 { // Stir things up with the mouse
   float fx = 2 * (mouseX - pmouseX);
   float fy = 2 * (mouseY - pmouseY);
-  applyForce( mouseX, mouseY, fx, fy );
+  applyForce( fx, fy, mouseX, mouseY );
 }
 
 void keyPressed()
