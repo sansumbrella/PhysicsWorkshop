@@ -15,6 +15,7 @@ void setup()
   createSpring( a, b );
   createSpring( b, c );
   createSpring( a, c );
+  pinNode( a );
 }
 
 void draw()

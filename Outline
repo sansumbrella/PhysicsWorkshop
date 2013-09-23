@@ -25,3 +25,5 @@ Draw on paper, label, convert to Processing as nodes and springs
 next time:
 remove conditionals from examples
 easier way to add mouse grabbing?
+for "advanced" sample, add texture mapping
+make sure things work in processing.js
